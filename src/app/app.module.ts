@@ -5,20 +5,27 @@ import { AppComponent } from './app.component';
 
 // Social Sign In
 
-import { SocialLoginModule, SocialAuthServiceConfig, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { SocialLoginModule, SocialAuthServiceConfig, GoogleSigninButtonModule, GoogleSigninButtonDirective } from '@abacritt/angularx-social-login';
 import {
   GoogleLoginProvider,
 } from '@abacritt/angularx-social-login';
+import { AppRoutingRoutingModule } from './app-routing-routing.module';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     SocialLoginModule,
-    GoogleSigninButtonModule
+    GoogleSigninButtonModule,
+    AppRoutingRoutingModule,
+  ],
+  exports: [
+    GoogleSigninButtonDirective
   ],
   providers: [
     {
