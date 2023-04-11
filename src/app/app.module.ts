@@ -11,18 +11,24 @@ import {
 } from '@abacritt/angularx-social-login';
 import { AppRoutingRoutingModule } from './app-routing-routing.module';
 import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
+import { QuizModule } from './quiz/quiz.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     SocialLoginModule,
     GoogleSigninButtonModule,
     AppRoutingRoutingModule,
+    FormsModule,
+    QuizModule
   ],
   exports: [
     GoogleSigninButtonDirective

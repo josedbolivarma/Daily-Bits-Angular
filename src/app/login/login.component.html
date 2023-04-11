@@ -17,16 +17,16 @@
 
     <div class="text_content">
       <p class="label green">¿Se te olvidó tu contraseña?</p>
-      <p class="label">¿Aún no tienes una cuenta? <span class="green">Inscribirse</span></p>
+      <p class="label">¿Aún no tienes una cuenta? <span class="green" routerLink="/register">Inscribirse</span></p>
     </div>
 
 </div>
 </section>
 
-<div *ngIf="user">
+<!-- <div *ngIf="user">
   <img src="{{ user.photoUrl }}" referrerpolicy="no-referrer">
   <div>
     <h4>{{ user.name }}</h4>
     <p>{{ user.email }}</p>
   </div>
-</div>
+</div> -->
