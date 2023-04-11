@@ -4,6 +4,7 @@ import { QuestionComponent } from './components/question/question.component';
 import { AnswerComponent } from './components/answer/answer.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { RouterModule, Routes } from '@angular/router';
+import { QuizService } from './services/quiz.service';
 
 const routes: Routes = [
   {
@@ -19,5 +20,6 @@ const routes: Routes = [
     AnswerComponent,
     QuizComponent
   ],
+  providers: [QuizService]
 })
 export class QuizModule { }

@@ -1,5 +1,5 @@
 export interface QuestionInterface {
     question: string;
-    incorrectAnswers: string[];
-    correctAnswer: string;
+    incorrect_answers: string[];
+    correct_answer: string;
 }

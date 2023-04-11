@@ -1,0 +1,26 @@
+.container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 3rem 0;
+    margin-bottom: 6rem;
+}
+
+.avatar {
+    width: 75px;
+    height: 159px;
+}
+
+.question {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.quiz_container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 36px 0;
+}

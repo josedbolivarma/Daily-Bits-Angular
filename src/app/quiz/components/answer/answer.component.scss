@@ -1,0 +1,38 @@
+.box {
+    width: 100%;
+    height: 56px;
+    padding: 0 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid white;
+    border-radius: 2px;
+    background-color: #232E35;
+}
+
+.btn {
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    border: 2px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box_checked-correct {
+    border-color: #2CB67D;
+}
+
+.box_checked-incorrect {
+    border-color: #EF4565;
+}
+
+.answer {
+    color: white;
+}
+
+.checked-icon {
+    width: 13px;
+    height: 10px;
+}
