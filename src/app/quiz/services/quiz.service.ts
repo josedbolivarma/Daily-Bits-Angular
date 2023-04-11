@@ -11,7 +11,6 @@ export class QuizService {
   state$ = new BehaviorSubject<QuizStateInterface>({
     questions: mockData,
     currentQuestionIndex: 0,
-    
   });
 
   constructor() { }

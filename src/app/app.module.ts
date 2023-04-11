@@ -14,13 +14,17 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { QuizModule } from './quiz/quiz.module';
+import { HomeComponent } from './home/home/home.component';
+import { SharedModule } from './shared/shared.module';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +32,18 @@ import { QuizModule } from './quiz/quiz.module';
     GoogleSigninButtonModule,
     AppRoutingRoutingModule,
     FormsModule,
-    QuizModule
+    QuizModule,
+    SharedModule,
+    // Specify ng-circle-progress as an import
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 100,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+      animationDuration: 300,
+    })
   ],
   exports: [
     GoogleSigninButtonDirective
