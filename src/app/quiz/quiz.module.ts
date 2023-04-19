@@ -7,17 +7,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { QuizService } from './services/quiz.service';
 
 const routes: Routes = [
-  {
-    path: "",
-    component: QuizComponent
-  }
-]
+ 
+];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes), CommonModule],
   declarations: [
     QuestionComponent,
     AnswerComponent,
+    QuizComponent
+  ],
+  exports: [
     QuizComponent
   ],
   providers: [QuizService]

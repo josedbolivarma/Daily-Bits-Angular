@@ -5,8 +5,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 2px solid white;
     border-radius: 2px;
+    border: 2px solid black;
     background-color: #232E35;
 }
 
@@ -14,25 +14,59 @@
     border-radius: 50%;
     height: 24px;
     width: 24px;
-    border: 2px solid white;
+    border: 2px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.box_checked-correct {
-    border-color: #2CB67D;
+
+// :Host [ngClass]
+:host.correct-answer {
+        .box {
+            border-color: green !important;
+        }
+
+    .btn-checked-correct {
+        display: block;
+        width: 13px;
+        height: 10px;
+    }
+
+    .btn {
+        border: 2px solid green !important;
+    }
 }
 
-.box_checked-incorrect {
-    border-color: #EF4565;
+:host.disabled-answer {
+    .box {
+        border-color:gray;
+    }
+
+    .btn {
+        border: 2px solid gray;
+    }
+}
+
+:host.wrong-answer {
+    .box {
+        border-color:red;
+    }
+
+    .btn-checked-incorrect {
+        display: block;
+    }
+    
+    .btn {
+        border: 2px solid red;
+    }
+}
+
+
+.btn-checked-none {
+    display: none;
 }
 
 .answer {
     color: white;
-}
-
-.checked-icon {
-    width: 13px;
-    height: 10px;
 }

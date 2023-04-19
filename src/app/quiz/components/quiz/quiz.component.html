@@ -1,26 +1,45 @@
 <div class="quiz">
     <div class="container">
         <div class="score">
-            <img src="../../../../assets/icons/Property 1=x.svg" alt="Close Icon" />
-            <progress class="progress" value="10" max="100"></progress>
+            <img 
+                (click)="restart()"
+                src="../../../../assets/icons/Property 1=x.svg" 
+                alt="Close Icon" 
+            />
+            <progress class="progress" [value]="currentQuestionIndex$ | async" [max]="questionsLength$ | async"></progress>
             <div class="heart_box">
                 <img src="../../../../assets/icons/Property 1=heart.svg" alt="Heart Icon" />
                 <span>4</span>
             </div>
         </div>
+        <h2>Question {{ currentQuestionIndex$ | async }} / {{ questionsLength$ | async }}</h2>
         <app-quiz-question></app-quiz-question>
 
-        <!-- <button style="background-color: #6B47DC;" class="next_button">
+        <button 
+            *ngIf="!(showResults$ | async)"
+            style="background-color: #6B47DC;" 
+            class="next_button"
+            (click)="nextQuestion()"
+            >
             Comprobar
-        </button> -->
+        </button>
     </div>
 
-    <div class="modal" style="background-color: #ACFFCF;">
+    {{ correctAnswerCount$ | async }}
+
+    <div 
+    *ngIf="(showResults$ | async)"
+    class="modal" style="background-color: #ACFFCF;">
         <div class="modal_container">
         <p class="modal_text">¡Buen trabajo!</p>
-        <button style="background-color: #2CB67D;" class="next_button">
+        <button 
+            style="background-color: #2CB67D;" 
+            class="next_button"
+            (click)="nextQuestion()"
+            >
             Comprobar
         </button>
         </div>
     </div>
+
 </div>

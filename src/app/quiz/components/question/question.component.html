@@ -1,12 +1,36 @@
 <div class="container">
-    <img class="avatar" src="../../../../assets/images/Property 1=1.png" alt="Avatar">
-    <p class="question">
-        ¿Qué etiqueta es semánticamente correcta para el contenido principal?
-    </p>
+  <img
+    class="avatar"
+    src="../../../../assets/images/Property 1=1.png"
+    alt="Avatar"
+  />
+  <p class="question">
+    {{ (question$ | async)?.question }}
+  </p>
 </div>
 
 <div class="quiz_container">
-    <app-quiz-answer></app-quiz-answer>
-    <app-quiz-answer></app-quiz-answer>
-    <app-quiz-answer></app-quiz-answer>
+  <app-quiz-answer
+    *ngFor="let answer of answers$ | async; let i = index"
+    [answerText]="answer"
+    [index]="i"
+    [ngClass]="{
+      answer: true,
+      'correct-answer': isCorrectAnswer(answer),
+      'wrong-answer': isWrongAnswer(answer),
+      'disabled-answer': isDisabledAnswer(answer)
+    }"
+    (selectAnswer)="selectAnswer($event)"
+  ></app-quiz-answer>
 </div>
+
+<!-- <div class="quiz_container">
+    <app-quiz-answer 
+        *ngFor="let answer of answers$ | async; let i = index" 
+        [answerText]="answer"
+        [index]="i"
+        [correctAnswer]="correctAnswer$ | async"
+        [currentAnswer]="currentAnswer$ | async"
+        (selectAnswer)="selectAnswer($event)"
+        ></app-quiz-answer>
+</div> -->
