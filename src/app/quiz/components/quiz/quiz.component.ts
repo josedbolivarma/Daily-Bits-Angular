@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { QuizService } from '../../services/quiz.service';
-import { Observable, Subscription, map } from 'rxjs';
+import { Observable, Subscription, distinctUntilChanged, map } from 'rxjs';
 import { QuestionInterface } from '../../types/question.interface';
 import { AnswerType } from '../../types/answer.type';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -60,7 +60,11 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   restart(): void {
-    this.quizService.restart();
+    this.routeSub = this.route.params.subscribe(param => {
+      const path = param["id"];
+      const quiz = dataQuiz.filter(category => category.name === path)[0].results;
+      this.quizService.restart(quiz);
+    });
   }
 
 
@@ -72,8 +76,6 @@ export class QuizComponent implements OnInit, OnDestroy {
       this.quizService.loadQuestions(quiz);
     });
 
-    
-
     this.correctAnswerSubscription = this.question$.pipe(
       map(question => question.correct_answer )
     ).subscribe(correctAnswer => this.correctAnswer = correctAnswer);
@@ -82,7 +84,6 @@ export class QuizComponent implements OnInit, OnDestroy {
       map(state => state.currentAnswer )
     ).subscribe(currentAnswer => this.currentAnswer = currentAnswer);
 
-    console.log(this.currentAnswer, this.correctAnswer);
   };
 
   ngOnDestroy(): void {

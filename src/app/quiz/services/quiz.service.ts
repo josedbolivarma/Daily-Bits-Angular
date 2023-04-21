@@ -51,8 +51,9 @@ export class QuizService {
     });
   }
 
-  restart(): void {
-    this.setState(this.initialState);
+  restart(questions: any): void {
+    const initialAnswers = this.shuffleAnswers(questions[0]);
+    this.setState({ ...this.initialState, questions, answers: initialAnswers });
   }
 
   selectAnswer(answer: AnswerType): void {
@@ -83,7 +84,6 @@ export class QuizService {
   }
 
   loadQuestions(questions: QuestionInterface[]): void {
-    console.log("Loadquestions", questions);
     const initialAnswers = this.shuffleAnswers(questions[0]);
     this.setState({ questions, answers: initialAnswers });
   }
