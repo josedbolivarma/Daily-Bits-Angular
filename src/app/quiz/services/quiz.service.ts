@@ -2,21 +2,19 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { QuizStateInterface } from '../types/quizState.interface';
 
-import { DataHTML, DataCSS } from '../data';
 import { QuestionInterface } from '../types/question.interface';
 import { AnswerType } from '../types/answer.type';
-import { Params } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class QuizService {
   initialState: QuizStateInterface = {
-    questions: DataCSS,
+    questions: [],
     currentQuestionIndex: 0,
     showResults: false,
     correctAnswerCount: 0,
-    answers: this.shuffleAnswers(DataCSS[0]),
+    answers: [],
     currentAnswer: null,
   };
   state$ = new BehaviorSubject<QuizStateInterface>({ ...this.initialState });
@@ -31,40 +29,6 @@ export class QuizService {
   getState(): QuizStateInterface {
     return this.state$.getValue();
   }
-
-  // filterData(param: string) {
-  //   if (param === "html") {
-  //     this.state$.next({
-  //       ...this.state$.getValue(),
-  //       questions: DataHTML,
-  //       answers: this.shuffleAnswers(DataHTML[0]),
-  //     });
-  //   }
-
-    // if (param === "html") {
-    //   this.state$.next({
-    //     ...this.state$.getValue(),
-    //     questions: DataHTML,
-    //     answers: this.shuffleAnswers(DataHTML[0]),
-    //   });
-    // }
-
-    // if (param === "html") {
-    //   this.state$.next({
-    //     ...this.state$.getValue(),
-    //     questions: DataHTML,
-    //     answers: this.shuffleAnswers(DataHTML[0]),
-    //   });
-    // }
-
-    // if (param === "html") {
-    //   this.state$.next({
-    //     ...this.state$.getValue(),
-    //     questions: DataHTML,
-    //     answers: this.shuffleAnswers(DataHTML[0]),
-    //   });
-    // }
-  // }
 
   nextQuestion(): void {
     const state = this.getState();
@@ -117,4 +81,11 @@ export class QuizService {
       .sort((a, b) => a.sort - b.sort)
       .map((el) => el.value);
   }
+
+  loadQuestions(questions: QuestionInterface[]): void {
+    console.log("Loadquestions", questions);
+    const initialAnswers = this.shuffleAnswers(questions[0]);
+    this.setState({ questions, answers: initialAnswers });
+  }
+
 }

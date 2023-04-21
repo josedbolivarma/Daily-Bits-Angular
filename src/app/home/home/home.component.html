@@ -5,11 +5,12 @@
     </h3>
 
     <div class="options">
+      <a [routerLink]="option.path" *ngFor="let option of options" style="text-decoration: none;">
         <div class="option">
           <!-- You can now use it in app.component.html -->
           <circle-progress
             class="circle-progress"
-            [percent]="35"
+            [percent]="option.percent"
             [radius]="50"
             [outerStrokeWidth]="10"
             [innerStrokeWidth]="1"
@@ -23,122 +24,14 @@
             [animation]="true"
             [animationDuration]="300"
             [showImage]="true"
-            [imageSrc]="'../../../assets/images/figma.png'"
+            [imageSrc]="option.image"
             [imageHeight]="64"
             [imageWidth]="64"
           ></circle-progress>
-          <p>FIGMA</p>
+          <p>{{ option.title }}</p>
         </div>
-
-      <!-- Option -->
-      <div class="option">
-        <!-- You can now use it in app.component.html -->
-        <circle-progress
-          class="circle-progress"
-          [percent]="35"
-          [radius]="50"
-          [outerStrokeWidth]="10"
-          [innerStrokeWidth]="1"
-          [backgroundStrokeWidth]="2"
-          [outerStrokeColor]="'#2CB67D'"
-          [innerStrokeColor]="'#232E35'"
-          [backgroundStroke]="'#232E35'"
-          [showInnerStroke]="true"
-          [outerStrokeGradient]="true"
-          [outerStrokeGradientStopColor]="'#0B6D44'"
-          [animation]="true"
-          [animationDuration]="300"
-          [showImage]="true"
-          [imageSrc]="'../../../assets/images/ux.png'"
-          [imageHeight]="64"
-          [imageWidth]="64"
-        ></circle-progress>
-        <p>UX</p>
-      </div>
-      <!-- Option -->
-
-      <!-- Option -->
-      <div class="option">
-        <!-- You can now use it in app.component.html -->
-        <circle-progress
-          class="circle-progress"
-          [percent]="35"
-          [radius]="50"
-          [outerStrokeWidth]="10"
-          [innerStrokeWidth]="1"
-          [backgroundStrokeWidth]="2"
-          [outerStrokeColor]="'#2CB67D'"
-          [innerStrokeColor]="'#232E35'"
-          [backgroundStroke]="'#232E35'"
-          [showInnerStroke]="true"
-          [outerStrokeGradient]="true"
-          [outerStrokeGradientStopColor]="'#0B6D44'"
-          [animation]="true"
-          [animationDuration]="300"
-          [showImage]="true"
-          [imageSrc]="'../../../assets/images/css.png'"
-          [imageHeight]="64"
-          [imageWidth]="64"
-        ></circle-progress>
-        <p>CSS</p>
-      </div>
-      <!-- Option -->
-
-      <!-- Option -->
-      <div class="option">
-        <!-- You can now use it in app.component.html -->
-        <circle-progress
-          class="circle-progress"
-          [percent]="35"
-          [radius]="50"
-          [outerStrokeWidth]="10"
-          [innerStrokeWidth]="1"
-          [backgroundStrokeWidth]="2"
-          [outerStrokeColor]="'#2CB67D'"
-          [innerStrokeColor]="'#232E35'"
-          [backgroundStroke]="'#232E35'"
-          [showInnerStroke]="true"
-          [outerStrokeGradient]="true"
-          [outerStrokeGradientStopColor]="'#0B6D44'"
-          [animation]="true"
-          [animationDuration]="300"
-          [showImage]="true"
-          [imageSrc]="'../../../assets/images/js.png'"
-          [imageHeight]="64"
-          [imageWidth]="64"
-        ></circle-progress>
-        <p>JS</p>
-      </div>
-      <!-- Option -->
-
-      <!-- Option -->
-      <a routerLink="/quiz/html">
-      <div class="option">
-        <!-- You can now use it in app.component.html -->
-        <circle-progress
-          class="circle-progress"
-          [percent]="35"
-          [radius]="50"
-          [outerStrokeWidth]="10"
-          [innerStrokeWidth]="1"
-          [backgroundStrokeWidth]="2"
-          [outerStrokeColor]="'#2CB67D'"
-          [innerStrokeColor]="'#232E35'"
-          [backgroundStroke]="'#232E35'"
-          [showInnerStroke]="true"
-          [outerStrokeGradient]="true"
-          [outerStrokeGradientStopColor]="'#0B6D44'"
-          [animation]="true"
-          [animationDuration]="300"
-          [showImage]="true"
-          [imageSrc]="'../../../assets/images/html.png'"
-          [imageHeight]="64"
-          [imageWidth]="64"
-        ></circle-progress>
-        <p>HTML</p>
-      </div>
       </a>
-      <!-- Option -->
+
 
       
     </div>

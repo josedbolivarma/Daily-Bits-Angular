@@ -4,6 +4,7 @@ import { Observable, Subscription, map } from 'rxjs';
 import { QuestionInterface } from '../../types/question.interface';
 import { AnswerType } from '../../types/answer.type';
 import { ActivatedRoute, Params } from '@angular/router';
+import dataQuiz from '../../data';
 
 @Component({
   selector: 'app-quiz',
@@ -66,8 +67,12 @@ export class QuizComponent implements OnInit, OnDestroy {
   // Answers
   ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(param => {
-      // this.path = param;
+      const path = param["id"];
+      const quiz = dataQuiz.filter(category => category.name === path)[0].results;
+      this.quizService.loadQuestions(quiz);
     });
+
+    
 
     this.correctAnswerSubscription = this.question$.pipe(
       map(question => question.correct_answer )
