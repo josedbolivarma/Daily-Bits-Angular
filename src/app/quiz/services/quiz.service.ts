@@ -2,20 +2,21 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { QuizStateInterface } from '../types/quizState.interface';
 
-import mockData from '../data';
+import { DataHTML, DataCSS } from '../data';
 import { QuestionInterface } from '../types/question.interface';
 import { AnswerType } from '../types/answer.type';
+import { Params } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class QuizService {
   initialState: QuizStateInterface = {
-    questions: mockData,
+    questions: DataCSS,
     currentQuestionIndex: 0,
     showResults: false,
     correctAnswerCount: 0,
-    answers: this.shuffleAnswers(mockData[0]),
+    answers: this.shuffleAnswers(DataCSS[0]),
     currentAnswer: null,
   };
   state$ = new BehaviorSubject<QuizStateInterface>({ ...this.initialState });
@@ -30,6 +31,40 @@ export class QuizService {
   getState(): QuizStateInterface {
     return this.state$.getValue();
   }
+
+  // filterData(param: string) {
+  //   if (param === "html") {
+  //     this.state$.next({
+  //       ...this.state$.getValue(),
+  //       questions: DataHTML,
+  //       answers: this.shuffleAnswers(DataHTML[0]),
+  //     });
+  //   }
+
+    // if (param === "html") {
+    //   this.state$.next({
+    //     ...this.state$.getValue(),
+    //     questions: DataHTML,
+    //     answers: this.shuffleAnswers(DataHTML[0]),
+    //   });
+    // }
+
+    // if (param === "html") {
+    //   this.state$.next({
+    //     ...this.state$.getValue(),
+    //     questions: DataHTML,
+    //     answers: this.shuffleAnswers(DataHTML[0]),
+    //   });
+    // }
+
+    // if (param === "html") {
+    //   this.state$.next({
+    //     ...this.state$.getValue(),
+    //     questions: DataHTML,
+    //     answers: this.shuffleAnswers(DataHTML[0]),
+    //   });
+    // }
+  // }
 
   nextQuestion(): void {
     const state = this.getState();

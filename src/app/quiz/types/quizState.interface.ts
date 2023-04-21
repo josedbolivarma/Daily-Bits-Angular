@@ -6,6 +6,6 @@ export interface QuizStateInterface {
     currentQuestionIndex: number;
     showResults: boolean;
     correctAnswerCount: number;
-    answers: AnswerType[];
+    answers: AnswerType[] | null;
     currentAnswer: AnswerType | null;
 }

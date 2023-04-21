@@ -12,7 +12,7 @@ import { AnswerType } from '../../types/answer.type';
 export class QuestionComponent implements OnInit, OnDestroy {
 
   question$: Observable<QuestionInterface>;
-  answers$: Observable<AnswerType[]>;
+  answers$: Observable<AnswerType[]>|any;
   // correctAnswer$: Observable<AnswerType>;
   // currentAnswer$: Observable<AnswerType|null>;
   correctAnswer: AnswerType|null = null;
@@ -37,11 +37,11 @@ export class QuestionComponent implements OnInit, OnDestroy {
   };
   
   ngOnInit(): void {
-    this.correctAnswerSubscription = this.correctAnswerSubscription = this.question$.pipe(
+    this.correctAnswerSubscription = this.question$.pipe(
       map(question => question.correct_answer )
     ).subscribe(correctAnswer => this.correctAnswer = correctAnswer);
 
-    this.currentAnswerSubscription = this.currentAnswerSubscription = this.quizService.state$.pipe(
+    this.currentAnswerSubscription = this.quizService.state$.pipe(
       map(state => state.currentAnswer )
     ).subscribe(currentAnswer => this.currentAnswer = currentAnswer);
   };
@@ -72,7 +72,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
   isDisabledAnswer(answer: AnswerType): boolean {
     if (!this.currentAnswer || !this.correctAnswer) {
-    console.log("No Disabled");
+      console.log("No Disabled");
 
       return false;
     }
@@ -80,5 +80,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
     return Boolean(this.currentAnswer);
   };
+
 
 }

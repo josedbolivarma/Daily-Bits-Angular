@@ -1,22 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { QuizService } from '../../services/quiz.service';
-import { Observable, map } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
+import { QuestionInterface } from '../../types/question.interface';
+import { AnswerType } from '../../types/answer.type';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.scss']
 })
-export class QuizComponent {
+export class QuizComponent implements OnInit, OnDestroy {
+  routeSub!: Params;
 
-  id:string = "";
   questionsLength$: Observable<number>;
   currentQuestionIndex$: Observable<number>;
   showResults$: Observable<boolean>; 
   correctAnswerCount$: Observable<number>;
 
+  // 
+  question$: Observable<QuestionInterface>;
+  answers$!: Observable<AnswerType[]>|any;
+  correctAnswerSubscription!: Subscription;
+  currentAnswerSubscription!: Subscription;
+  correctAnswer: AnswerType|null = null;
+  currentAnswer: AnswerType|null = null;
+
   constructor(
-    private quizService: QuizService
+    private quizService: QuizService,
+    private route: ActivatedRoute
   ) {
     this.questionsLength$ = this.quizService.state$.pipe(map(state => state.questions.length))
     
@@ -31,6 +43,15 @@ export class QuizComponent {
     this.correctAnswerCount$ = this.quizService.state$.pipe(
       map(state => state.correctAnswerCount)
     );
+
+    // 
+    this.question$ = this.quizService.state$.pipe(
+      map(state => state.questions[state.currentQuestionIndex])
+    );
+    
+    this.answers$ = this.quizService.state$.pipe(
+      map(state => state.answers)
+    );
   }
 
   nextQuestion(): void {
@@ -39,6 +60,33 @@ export class QuizComponent {
 
   restart(): void {
     this.quizService.restart();
+  }
+
+
+  // Answers
+  ngOnInit(): void {
+    this.routeSub = this.route.params.subscribe(param => {
+      // this.path = param;
+    });
+
+    this.correctAnswerSubscription = this.question$.pipe(
+      map(question => question.correct_answer )
+    ).subscribe(correctAnswer => this.correctAnswer = correctAnswer);
+
+    this.currentAnswerSubscription = this.quizService.state$.pipe(
+      map(state => state.currentAnswer )
+    ).subscribe(currentAnswer => this.currentAnswer = currentAnswer);
+
+    console.log(this.currentAnswer, this.correctAnswer);
+  };
+
+  ngOnDestroy(): void {
+    this.correctAnswerSubscription.unsubscribe();
+    this.currentAnswerSubscription.unsubscribe();
+  };
+
+  completedTest() {
+
   }
 
 }
