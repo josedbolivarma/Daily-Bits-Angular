@@ -1,116 +1,149 @@
 <div class="quiz">
-    <div class="container">
-        <div class="score">
-            <img 
-                (click)="restart()"
-                src="../../../../assets/icons/Property 1=x.svg" 
-                alt="Close Icon" 
-            />
-            <progress class="progress" [value]="currentQuestionIndex$ | async" [max]="questionsLength$ | async"></progress>
-            <div class="heart_box">
-                <img src="../../../../assets/icons/Property 1=heart.svg" alt="Heart Icon" />
-                <span>4</span>
-            </div>
-        </div>
-        <h2>Question {{ currentQuestionIndex$ | async }} / {{ questionsLength$ | async }}</h2>
-        <app-quiz-question></app-quiz-question>
-
-        <button 
-            *ngIf="!(showResults$ | async)"
-            style="background-color: #6B47DC;" 
-            class="next_button"
-            (click)="nextQuestion()"
-            >
-            Comprobar
-        </button>
+  <div class="container">
+    <div class="score">
+      <img
+        (click)="restart()"
+        src="../../../../assets/icons/Property 1=x.svg"
+        alt="Close Icon"
+      />
+      <progress
+        class="progress"
+        [value]="currentQuestionIndex$ | async"
+        [max]="questionsLength$ | async"
+      ></progress>
+      <div class="heart_box">
+        <img
+          src="../../../../assets/icons/Property 1=heart.svg"
+          alt="Heart Icon"
+        />
+        <span>4</span>
+      </div>
     </div>
+    <h2>
+      Question {{ currentQuestionIndex$ | async }} /
+      {{ questionsLength$ | async }}
+    </h2>
+    <app-quiz-question></app-quiz-question>
 
-    
+    <button
+      *ngIf="!(showResults$ | async)"
+      style="background-color: #6b47dc"
+      class="next_button"
+      (click)="nextQuestion()"
+    >
+      Comprobar
+    </button>
+  </div>
 
-    <!-- Completed Test Modal -->
-    <div 
-    *ngIf="(showResults$ | async)"
-    class="modal" [style]="{
-        'background-color': (correctAnswerCount$ | async)! >= ((questionsLength$ | async)! / 2) ? '#ACFFCF' : '#F9CFD7'
-    }">
-        <div class="modal_container">
-        <div class="text-box" *ngIf="(correctAnswerCount$ | async)! >= ((questionsLength$ | async)! / 2)">
-            <p class="modal_text" style="color: #269769;">¡Buen trabajo!</p>
-            
-            <p class="modal_text">
-                Has completado {{ correctAnswerCount$ | async }} de {{ questionsLength$ | async }} preguntas
-            </p>
+  <!-- Completed Test Modal -->
+  <div
+    *ngIf="showResults$ | async"
+    class="modal"
+    [style]="{
+      'background-color':
+        (correctAnswerCount$ | async)! >= (questionsLength$ | async)! / 2
+          ? '#ACFFCF'
+          : '#F9CFD7'
+    }"
+  >
+    <div class="modal_container">
+      <div
+        class="text-box"
+        *ngIf="
+          (correctAnswerCount$ | async)! >= (questionsLength$ | async)! / 2
+        "
+      >
+        <p class="modal_text" style="color: #269769">¡Buen trabajo!</p>
 
-            <p class="modal_text" style="color: #269769;">¡Pasaste, te esperamos en tu siguiente modulo!</p>
-        </div>
+        <p class="modal_text">
+          Has completado {{ correctAnswerCount$ | async }} de
+          {{ questionsLength$ | async }} preguntas
+        </p>
 
-        <div class="text-box" *ngIf="(correctAnswerCount$ | async)! < ((questionsLength$ | async)! / 2)">
-            <p class="modal_text" style="color: #B81E3B;">Lo siento...</p>
-            <p class="modal_text">
-                Has completado {{ correctAnswerCount$ | async }} de {{ questionsLength$ | async }} preguntas
-            </p>
-            <p class="modal_text" style="color: #B81E3B;">¡No pasaste, esfuerzate y puede que lo logres en una proxima ocasion!</p>
+        <p class="modal_text" style="color: #269769">
+          ¡Pasaste, te esperamos en tu siguiente modulo!
+        </p>
+      </div>
 
-        </div>
+      <div
+        class="text-box"
+        *ngIf="(correctAnswerCount$ | async)! < (questionsLength$ | async)! / 2"
+      >
+        <p class="modal_text" style="color: #b81e3b">Lo siento...</p>
+        <p class="modal_text">
+          Has completado {{ correctAnswerCount$ | async }} de
+          {{ questionsLength$ | async }} preguntas
+        </p>
+        <p class="modal_text" style="color: #b81e3b">
+          ¡No pasaste, esfuerzate y puede que lo logres en una proxima ocasion!
+        </p>
+      </div>
 
-        
-        <button 
-            [style]="{
-                'background-color': (correctAnswerCount$ | async)! >= ((questionsLength$ | async)! / 2) ? '#2CB67D' : '#EF4565'
-            }"
-            class="next_button"
-            (click)="completedTest()"
-            >
-            Finalizar
-        </button>
-
-        </div>
+      <button
+        [style]="{
+          'background-color':
+            (correctAnswerCount$ | async)! >= (questionsLength$ | async)! / 2
+              ? '#2CB67D'
+              : '#EF4565'
+        }"
+        class="next_button"
+        (click)="completedTest()"
+      >
+        Finalizar
+      </button>
     </div>
-    <!-- Completed Test Modal -->
-    
+  </div>
+  <!-- Completed Test Modal -->
 
-    <div 
-    *ngIf="currentAnswer && (currentAnswer === correctAnswer)"
-    class="modal" style="background-color: #ACFFCF;">
-        <div class="modal_container">
-        <!-- <p class="modal_text">¡Buen trabajo!</p> -->
-        <p class="modal_text" *ngIf="(correctAnswerCount$ | async)! >= 2">
-            {{ correctAnswerCount$ | async }} / {{ questionsLength$ | async }}
+  <!-- CORRECT -->
+  <div
+    *ngIf="currentAnswer && currentAnswer === correctAnswer"
+    class="modal"
+    style="background-color: #acffcf"
+  >
+    <div class="modal_container">
+      <div class="text-box">
+        <p class="modal_text">¡Buen trabajo!</p>
+        <p class="modal_text" style="color: #2cb67d">
+          {{ correctAnswerCount$ | async }} / {{ questionsLength$ | async }}
         </p>
-        <p class="modal_text" *ngIf="(correctAnswerCount$ | async)! < 2">
-            {{ correctAnswerCount$ | async }} / {{ questionsLength$ | async }}
-        </p>
-        <button 
-            style="background-color: #2CB67D;" 
-            class="next_button"
-            (click)="nextQuestion()"
-            >
-            Comprobar
-        </button>
-        </div>
+      </div>
+      <button
+        style="background-color: #2cb67d"
+        class="next_button"
+        (click)="nextQuestion()"
+      >
+        Comprobar
+      </button>
     </div>
+  </div>
+  <!-- CORRECT -->
 
-    <!-- Correct -->
-
-    <div 
-    *ngIf="currentAnswer && (currentAnswer !== correctAnswer)"
-    class="modal" style="background-color: #ff7f7f;">
-        <div class="modal_container">
-        <!-- <p class="modal_text">¡Buen trabajo!</p> -->
-        <p class="modal_text" *ngIf="(correctAnswerCount$ | async)! >= 2">
-            {{ correctAnswerCount$ | async }} / {{ questionsLength$ | async }}
+  <!-- INCORRECT -->
+  <div
+    *ngIf="currentAnswer && currentAnswer !== correctAnswer"
+    class="modal"
+    style="background-color: #ff7f7f"
+  >
+    <div class="modal_container">
+      <div class="text-box">
+        <p class="modal_text" style="color: #b81e3b">
+          {{ correctAnswerCount$ | async }} / {{ questionsLength$ | async }}
         </p>
-        <p class="modal_text" *ngIf="(correctAnswerCount$ | async)! < 2">
-            {{ correctAnswerCount$ | async }} / {{ questionsLength$ | async }}
+        <p class="modal_text">
+          La respuesta correcta era:
+          <b style="color: #b81e3b">{{ correctAnswer }}</b>
         </p>
-        <button 
-            style="background-color: #2CB67D;" 
-            class="next_button"
-            (click)="nextQuestion()"
-            >
-            Comprobar
-        </button>
-        </div>
+      </div>
+      <button
+        style="background-color: #2cb67d"
+        class="next_button"
+        (click)="nextQuestion()"
+      >
+        Comprobar
+      </button>
     </div>
+    <!-- INCORRECT -->
 
+  </div>
 </div>
