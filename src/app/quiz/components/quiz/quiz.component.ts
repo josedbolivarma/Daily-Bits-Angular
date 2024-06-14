@@ -105,6 +105,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   };
 
   completedTest() {
+    this.restart();
     this.router.navigate(['/']);
   }
 

@@ -19,6 +19,11 @@
     align-items: center;
     color: white;
     cursor: pointer;
+    text-decoration: none;
+}
+
+.box:hover {
+    color: #dfdfdf;
 }
 
 .icon {

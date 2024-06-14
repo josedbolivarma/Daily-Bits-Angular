@@ -26,6 +26,10 @@ const routes: Routes = [
     path: "statistics",
     loadChildren: () => import("./statistics/statistics.module").then(m => m.StatisticsModule)
   },
+  {
+    path: "profile",
+    loadChildren: () => import("./profile/profile.module").then(m => m.ProfileModule)
+  }
   // {
   //   path: "**",
   //   redirectTo: "login"
