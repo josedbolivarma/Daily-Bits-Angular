@@ -24,3 +24,8 @@
     gap: 16px;
     margin: 36px 0;
 }
+
+.app-disabled {
+  opacity: 0.96;
+  pointer-events: none;
+}

@@ -16,8 +16,15 @@ export class QuizService {
     correctAnswerCount: 0,
     answers: [],
     currentAnswer: null,
+    games: 4
   };
+  
   state$ = new BehaviorSubject<QuizStateInterface>({ ...this.initialState });
+  disabled$ = new BehaviorSubject<boolean>(false);
+
+  setDisabled(state: boolean): void {
+    this.disabled$.next(state);
+  }
 
   setState(partialState: Partial<QuizStateInterface>): void {
     this.state$.next({
@@ -28,6 +35,12 @@ export class QuizService {
 
   getState(): QuizStateInterface {
     return this.state$.getValue();
+  }
+
+  restartGame() {
+    this.setState({
+      games: this.state$.getValue().games - 1
+    })
   }
 
   nextQuestion(): void {
@@ -62,6 +75,11 @@ export class QuizService {
       answer === state.questions[state.currentQuestionIndex].correct_answer
         ? state.correctAnswerCount + 1
         : state.correctAnswerCount;
+
+      if (answer !== state.questions[state.currentQuestionIndex].correct_answer) {
+        this.restartGame();
+      }  
+
     this.setState({
       currentAnswer: answer,
       correctAnswerCount: newCorrectAnswerCount,

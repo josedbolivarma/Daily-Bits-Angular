@@ -9,7 +9,7 @@
   </p>
 </div>
 
-<div class="quiz_container">
+<div class="quiz_container" [ngClass]="{'app-disabled': (disabled$ | async)}">
   <app-quiz-answer
     *ngFor="let answer of answers$ | async; let i = index"
     [answerText]="answer"

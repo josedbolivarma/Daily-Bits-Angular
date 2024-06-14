@@ -8,4 +8,5 @@ export interface QuizStateInterface {
     correctAnswerCount: number;
     answers: AnswerType[] | null;
     currentAnswer: AnswerType | null;
+    games: number;
 }

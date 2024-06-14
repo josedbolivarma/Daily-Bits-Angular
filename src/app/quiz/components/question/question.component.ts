@@ -13,6 +13,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
   question$: Observable<QuestionInterface>;
   answers$: Observable<AnswerType[]>|any;
+  disabled$: Observable<boolean>;
   // correctAnswer$: Observable<AnswerType>;
   // currentAnswer$: Observable<AnswerType|null>;
   correctAnswer: AnswerType|null = null;
@@ -29,6 +30,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.answers$ = this.quizService.state$.pipe(
       map(state => state.answers)
     );
+    this.disabled$ = this.quizService.disabled$.pipe(
+      map(state => state)
+    );
   };
 
   ngOnDestroy(): void {
@@ -37,6 +41,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   };
   
   ngOnInit(): void {
+    this.quizService.setDisabled(false);
     this.correctAnswerSubscription = this.question$.pipe(
       map(question => question.correct_answer )
     ).subscribe(correctAnswer => this.correctAnswer = correctAnswer);
@@ -47,6 +52,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   };
 
   selectAnswer(answer: AnswerType): void {
+    this.quizService.setDisabled(true);
     this.quizService.selectAnswer(answer);
   };
 
@@ -76,8 +82,8 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
       return false;
     }
-
-
+    
+    
     return Boolean(this.currentAnswer);
   };
 

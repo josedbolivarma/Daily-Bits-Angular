@@ -3,7 +3,7 @@ import { QuizService } from '../../services/quiz.service';
 import { Observable, Subscription, distinctUntilChanged, map } from 'rxjs';
 import { QuestionInterface } from '../../types/question.interface';
 import { AnswerType } from '../../types/answer.type';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import dataQuiz from '../../data';
 
 @Component({
@@ -18,8 +18,9 @@ export class QuizComponent implements OnInit, OnDestroy {
   currentQuestionIndex$: Observable<number>;
   showResults$: Observable<boolean>; 
   correctAnswerCount$: Observable<number>;
+  games$: Observable<number>;
+  disabled$: Observable<boolean>;
 
-  // 
   question$: Observable<QuestionInterface>;
   answers$!: Observable<AnswerType[]>|any;
   correctAnswerSubscription!: Subscription;
@@ -29,7 +30,8 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   constructor(
     private quizService: QuizService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.questionsLength$ = this.quizService.state$.pipe(map(state => state.questions.length))
     
@@ -53,13 +55,24 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.answers$ = this.quizService.state$.pipe(
       map(state => state.answers)
     );
+
+    this.games$ = this.quizService.state$.pipe(
+      map(state => state.games)
+    );
+
+    this.disabled$ = this.quizService.disabled$.pipe(
+      map(state => state)
+    );
+
   }
 
   nextQuestion(): void {
+    this.quizService.setDisabled(false);
     this.quizService.nextQuestion();
   }
 
   restart(): void {
+    this.quizService.setDisabled(false);
     this.routeSub = this.route.params.subscribe(param => {
       const path = param["id"];
       const quiz = dataQuiz.filter(category => category.name === path)[0].results;
@@ -92,7 +105,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   };
 
   completedTest() {
-
+    this.router.navigate(['/']);
   }
 
 }
