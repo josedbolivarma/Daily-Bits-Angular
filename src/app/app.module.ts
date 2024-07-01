@@ -17,6 +17,7 @@ import { QuizModule } from './quiz/quiz.module';
 import { HomeComponent } from './home/home/home.component';
 import { SharedModule } from './shared/shared.module';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 
@@ -36,6 +37,7 @@ import { RouterModule } from '@angular/router';
     QuizModule,
     SharedModule,
     RouterModule,
+    HttpClientModule,
     // Specify ng-circle-progress as an import
     NgCircleProgressModule.forRoot({
       // set defaults here
